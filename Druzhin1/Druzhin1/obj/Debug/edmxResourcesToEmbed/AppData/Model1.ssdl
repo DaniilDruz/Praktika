@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище Database1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="DutyLog">
+    <Key>
+      <PropertyRef Name="GuardID" />
+    </Key>
+    <Property Name="LogID" Type="int" />
+    <Property Name="DateTimeStart" Type="datetime" />
+    <Property Name="DateTimeEnd" Type="datetime" />
+    <Property Name="GuardID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Guard">
+    <Key>
+      <PropertyRef Name="GuardID" />
+    </Key>
+    <Property Name="GuardID" Type="int" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Position" Type="nvarchar" MaxLength="50" />
+    <Property Name="PostID" Type="int" Nullable="false" />
+    <Property Name="TimeJob" Type="int" />
+    <Property Name="Count" Type="int" />
+  </EntityType>
+  <EntityType Name="Post">
+    <Key>
+      <PropertyRef Name="iD" />
+    </Key>
+    <Property Name="iD" Type="int" Nullable="false" />
+    <Property Name="PostName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ReportLog">
+    <Key>
+      <PropertyRef Name="GuardID" />
+    </Key>
+    <Property Name="LogID" Type="int" />
+    <Property Name="DataTime" Type="datetime" />
+    <Property Name="Descrition" Type="nvarchar(max)" />
+    <Property Name="GuardID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Guard_DutyLog">
+    <End Role="DutyLog" Type="Self.DutyLog" Multiplicity="1" />
+    <End Role="Guard" Type="Self.Guard" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="DutyLog">
+        <PropertyRef Name="GuardID" />
+      </Principal>
+      <Dependent Role="Guard">
+        <PropertyRef Name="GuardID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Guard_Post">
+    <End Role="Post" Type="Self.Post" Multiplicity="1" />
+    <End Role="Guard" Type="Self.Guard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="iD" />
+      </Principal>
+      <Dependent Role="Guard">
+        <PropertyRef Name="PostID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Guard_ReportLog">
+    <End Role="ReportLog" Type="Self.ReportLog" Multiplicity="1" />
+    <End Role="Guard" Type="Self.Guard" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="ReportLog">
+        <PropertyRef Name="GuardID" />
+      </Principal>
+      <Dependent Role="Guard">
+        <PropertyRef Name="GuardID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище Database1ModelContainer">
+    <EntitySet Name="DutyLog" EntityType="Self.DutyLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Guard" EntityType="Self.Guard" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReportLog" EntityType="Self.ReportLog" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Guard_DutyLog" Association="Self.FK_Guard_DutyLog">
+      <End Role="DutyLog" EntitySet="DutyLog" />
+      <End Role="Guard" EntitySet="Guard" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Guard_Post" Association="Self.FK_Guard_Post">
+      <End Role="Post" EntitySet="Post" />
+      <End Role="Guard" EntitySet="Guard" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Guard_ReportLog" Association="Self.FK_Guard_ReportLog">
+      <End Role="ReportLog" EntitySet="ReportLog" />
+      <End Role="Guard" EntitySet="Guard" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,25 @@
+﻿<Page x:Class="Druzhin1.Pages.AddEditJYZPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Druzhin1.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AddEditJYZPage">
+
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="LogID" Margin="5" />
+            <TextBox  x:Name="ID" Text="{Binding LogID}" Margin="5"/>
+            <TextBlock Text="DataTime" Margin="5"/>
+            <TextBox  Name="Marka1" Text="{Binding DataTime}" Margin="5"/>
+            <TextBlock Text="Descrition" Margin="5" />
+            <TextBox  x:Name="model" Text="{Binding Descrition}" Margin="5"/>
+            <TextBlock Text="GuardID" Margin="5" />
+            <TextBox  x:Name="nom" Text="{Binding GuardID}" Margin="5"/>
+            <Button x:Name="SaveBtn"  Content="Сохранить" Margin="5" Width="150" Height="30" Click="SaveBtn_Click"  />
+            <Button x:Name="BackBtn"  Content="Назад" Margin="5" Width="150" Height="30" Click="BackBtn_Click" />
+        </StackPanel>
+    </Grid>
+</Page>

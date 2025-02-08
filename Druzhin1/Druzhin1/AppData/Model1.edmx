@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Database1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DutyLog">
+          <Key>
+            <PropertyRef Name="GuardID" />
+          </Key>
+          <Property Name="LogID" Type="int" />
+          <Property Name="DateTimeStart" Type="datetime" />
+          <Property Name="DateTimeEnd" Type="datetime" />
+          <Property Name="GuardID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Guard">
+          <Key>
+            <PropertyRef Name="GuardID" />
+          </Key>
+          <Property Name="GuardID" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Position" Type="nvarchar" MaxLength="50" />
+          <Property Name="PostID" Type="int" Nullable="false" />
+          <Property Name="TimeJob" Type="int" />
+          <Property Name="Count" Type="int" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="iD" />
+          </Key>
+          <Property Name="iD" Type="int" Nullable="false" />
+          <Property Name="PostName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ReportLog">
+          <Key>
+            <PropertyRef Name="GuardID" />
+          </Key>
+          <Property Name="LogID" Type="int" />
+          <Property Name="DataTime" Type="datetime" />
+          <Property Name="Descrition" Type="nvarchar(max)" />
+          <Property Name="GuardID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Guard_DutyLog">
+          <End Role="DutyLog" Type="Self.DutyLog" Multiplicity="1" />
+          <End Role="Guard" Type="Self.Guard" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="DutyLog">
+              <PropertyRef Name="GuardID" />
+            </Principal>
+            <Dependent Role="Guard">
+              <PropertyRef Name="GuardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Guard_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="Guard" Type="Self.Guard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="iD" />
+            </Principal>
+            <Dependent Role="Guard">
+              <PropertyRef Name="PostID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Guard_ReportLog">
+          <End Role="ReportLog" Type="Self.ReportLog" Multiplicity="1" />
+          <End Role="Guard" Type="Self.Guard" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ReportLog">
+              <PropertyRef Name="GuardID" />
+            </Principal>
+            <Dependent Role="Guard">
+              <PropertyRef Name="GuardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Database1ModelContainer">
+          <EntitySet Name="DutyLog" EntityType="Self.DutyLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Guard" EntityType="Self.Guard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportLog" EntityType="Self.ReportLog" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Guard_DutyLog" Association="Self.FK_Guard_DutyLog">
+            <End Role="DutyLog" EntitySet="DutyLog" />
+            <End Role="Guard" EntitySet="Guard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Guard_Post" Association="Self.FK_Guard_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Guard" EntitySet="Guard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Guard_ReportLog" Association="Self.FK_Guard_ReportLog">
+            <End Role="ReportLog" EntitySet="ReportLog" />
+            <End Role="Guard" EntitySet="Guard" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DutyLog">
+          <Key>
+            <PropertyRef Name="GuardID" />
+          </Key>
+          <Property Name="LogID" Type="Int32" />
+          <Property Name="DateTimeStart" Type="DateTime" Precision="3" />
+          <Property Name="DateTimeEnd" Type="DateTime" Precision="3" />
+          <Property Name="GuardID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Guard" Relationship="Self.FK_Guard_DutyLog" FromRole="DutyLog" ToRole="Guard" />
+        </EntityType>
+        <EntityType Name="Guard">
+          <Key>
+            <PropertyRef Name="GuardID" />
+          </Key>
+          <Property Name="GuardID" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PostID" Type="Int32" Nullable="false" />
+          <Property Name="TimeJob" Type="Int32" />
+          <Property Name="Count" Type="Int32" />
+          <NavigationProperty Name="DutyLog" Relationship="Self.FK_Guard_DutyLog" FromRole="Guard" ToRole="DutyLog" />
+          <NavigationProperty Name="Post" Relationship="Self.FK_Guard_Post" FromRole="Guard" ToRole="Post" />
+          <NavigationProperty Name="ReportLog" Relationship="Self.FK_Guard_ReportLog" FromRole="Guard" ToRole="ReportLog" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="iD" />
+          </Key>
+          <Property Name="iD" Type="Int32" Nullable="false" />
+          <Property Name="PostName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Guard" Relationship="Self.FK_Guard_Post" FromRole="Post" ToRole="Guard" />
+        </EntityType>
+        <EntityType Name="ReportLog">
+          <Key>
+            <PropertyRef Name="GuardID" />
+          </Key>
+          <Property Name="LogID" Type="Int32" />
+          <Property Name="DataTime" Type="DateTime" Precision="3" />
+          <Property Name="Descrition" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GuardID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Guard" Relationship="Self.FK_Guard_ReportLog" FromRole="ReportLog" ToRole="Guard" />
+        </EntityType>
+        <Association Name="FK_Guard_DutyLog">
+          <End Role="DutyLog" Type="Self.DutyLog" Multiplicity="1" />
+          <End Role="Guard" Type="Self.Guard" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="DutyLog">
+              <PropertyRef Name="GuardID" />
+            </Principal>
+            <Dependent Role="Guard">
+              <PropertyRef Name="GuardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Guard_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="Guard" Type="Self.Guard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="iD" />
+            </Principal>
+            <Dependent Role="Guard">
+              <PropertyRef Name="PostID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Guard_ReportLog">
+          <End Role="ReportLog" Type="Self.ReportLog" Multiplicity="1" />
+          <End Role="Guard" Type="Self.Guard" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ReportLog">
+              <PropertyRef Name="GuardID" />
+            </Principal>
+            <Dependent Role="Guard">
+              <PropertyRef Name="GuardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1Entities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DutyLog" EntityType="Self.DutyLog" />
+          <EntitySet Name="Guard" EntityType="Self.Guard" />
+          <EntitySet Name="Post" EntityType="Self.Post" />
+          <EntitySet Name="ReportLog" EntityType="Self.ReportLog" />
+          <AssociationSet Name="FK_Guard_DutyLog" Association="Self.FK_Guard_DutyLog">
+            <End Role="DutyLog" EntitySet="DutyLog" />
+            <End Role="Guard" EntitySet="Guard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Guard_Post" Association="Self.FK_Guard_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Guard" EntitySet="Guard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Guard_ReportLog" Association="Self.FK_Guard_ReportLog">
+            <End Role="ReportLog" EntitySet="ReportLog" />
+            <End Role="Guard" EntitySet="Guard" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Database1ModelContainer" CdmEntityContainer="Database1Entities1">
+          <EntitySetMapping Name="DutyLog">
+            <EntityTypeMapping TypeName="Database1Model.DutyLog">
+              <MappingFragment StoreEntitySet="DutyLog">
+                <ScalarProperty Name="LogID" ColumnName="LogID" />
+                <ScalarProperty Name="DateTimeStart" ColumnName="DateTimeStart" />
+                <ScalarProperty Name="DateTimeEnd" ColumnName="DateTimeEnd" />
+                <ScalarProperty Name="GuardID" ColumnName="GuardID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Guard">
+            <EntityTypeMapping TypeName="Database1Model.Guard">
+              <MappingFragment StoreEntitySet="Guard">
+                <ScalarProperty Name="GuardID" ColumnName="GuardID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="PostID" ColumnName="PostID" />
+                <ScalarProperty Name="TimeJob" ColumnName="TimeJob" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Post">
+            <EntityTypeMapping TypeName="Database1Model.Post">
+              <MappingFragment StoreEntitySet="Post">
+                <ScalarProperty Name="iD" ColumnName="iD" />
+                <ScalarProperty Name="PostName" ColumnName="PostName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportLog">
+            <EntityTypeMapping TypeName="Database1Model.ReportLog">
+              <MappingFragment StoreEntitySet="ReportLog">
+                <ScalarProperty Name="LogID" ColumnName="LogID" />
+                <ScalarProperty Name="DataTime" ColumnName="DataTime" />
+                <ScalarProperty Name="Descrition" ColumnName="Descrition" />
+                <ScalarProperty Name="GuardID" ColumnName="GuardID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

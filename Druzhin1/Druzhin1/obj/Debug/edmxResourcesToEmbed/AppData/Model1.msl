@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище Database1ModelContainer" CdmEntityContainer="Database1Entities1">
+    <EntitySetMapping Name="DutyLog">
+      <EntityTypeMapping TypeName="Database1Model.DutyLog">
+        <MappingFragment StoreEntitySet="DutyLog">
+          <ScalarProperty Name="LogID" ColumnName="LogID" />
+          <ScalarProperty Name="DateTimeStart" ColumnName="DateTimeStart" />
+          <ScalarProperty Name="DateTimeEnd" ColumnName="DateTimeEnd" />
+          <ScalarProperty Name="GuardID" ColumnName="GuardID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Guard">
+      <EntityTypeMapping TypeName="Database1Model.Guard">
+        <MappingFragment StoreEntitySet="Guard">
+          <ScalarProperty Name="GuardID" ColumnName="GuardID" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="PostID" ColumnName="PostID" />
+          <ScalarProperty Name="TimeJob" ColumnName="TimeJob" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Post">
+      <EntityTypeMapping TypeName="Database1Model.Post">
+        <MappingFragment StoreEntitySet="Post">
+          <ScalarProperty Name="iD" ColumnName="iD" />
+          <ScalarProperty Name="PostName" ColumnName="PostName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReportLog">
+      <EntityTypeMapping TypeName="Database1Model.ReportLog">
+        <MappingFragment StoreEntitySet="ReportLog">
+          <ScalarProperty Name="LogID" ColumnName="LogID" />
+          <ScalarProperty Name="DataTime" ColumnName="DataTime" />
+          <ScalarProperty Name="Descrition" ColumnName="Descrition" />
+          <ScalarProperty Name="GuardID" ColumnName="GuardID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
